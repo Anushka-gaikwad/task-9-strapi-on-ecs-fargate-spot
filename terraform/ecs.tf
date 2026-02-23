@@ -2,6 +2,10 @@ data "aws_iam_role" "ecs_role" {
   name = "ecs_fargate_taskRole"
 }
 
+resource "aws_ecs_cluster" "main" {
+  name = "strapi-cluster"
+}
+
 resource "aws_ecs_cluster_capacity_providers" "main" {
   cluster_name = aws_ecs_cluster.main.name
 
@@ -41,6 +45,7 @@ resource "aws_ecs_task_definition" "strapi" {
         { name = "DATABASE_NAME", value = "strapi" },
         { name = "DATABASE_USERNAME", value = "strapi" },
         { name = "DATABASE_PASSWORD", value = "Strapi1234" }
+        { name = "DATABASE_CLIENT", value = "postgres" },
       ]
     }
   ])
