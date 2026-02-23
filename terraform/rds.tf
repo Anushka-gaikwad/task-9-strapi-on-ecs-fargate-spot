@@ -8,3 +8,15 @@ resource "aws_db_instance" "strapi" {
   skip_final_snapshot = true
   publicly_accessible = true
 }
+
+resource "aws_db_subnet_group" "strapi" {
+  name       = "strapi-db-subnet-group"
+  subnet_ids = [
+    aws_subnet.public1.id,
+    aws_subnet.public2.id
+  ]
+
+  tags = {
+    Name = "strapi-db-subnet-group"
+  }
+}
